@@ -103,7 +103,7 @@ Result compare(const std::string& type, const Dbl& Ad) {
 
         mtl::vec::dense_vector<P> xq(n, P(0));
         auto quire = mtl::sparse::factorization::sparse_lu_numeric<
-            P, mtl::mat::parameters<>, sw::mp_spice::quire_acc<P>>(A, sym);
+            sw::mp_spice::quire_acc<P>>(A, sym);
         quire.solve(xq, b);
         errors(A, xq, b, r.quire_res, r.quire_ferr);
         r.ok = true;
