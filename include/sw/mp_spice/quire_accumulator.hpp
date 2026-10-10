@@ -10,8 +10,7 @@
 //
 // Inject it by instantiating sparse_lu_numeric with the quire accumulator:
 //   using Posit = sw::universal::posit<16,2>;
-//   sparse_lu_numeric<Posit, mat::parameters<>,
-//                     sw::mp_spice::quire_acc<Posit>>(A, sym);
+//   sparse_lu_numeric<sw::mp_spice::quire_acc<Posit>>(A, sym);
 //
 // Requires Universal (build with MPSPICE_MIXED_PRECISION_KLU=ON).
 
