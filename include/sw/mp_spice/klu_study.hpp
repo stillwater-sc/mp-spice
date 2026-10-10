@@ -91,8 +91,7 @@ solve_stats direct_solve(const DSparse& A,
         auto AT = recast<T>(A);
         mtl::vec::dense_vector<T> bT(n), xT(n, T(0));
         for (std::size_t i = 0; i < n; ++i) bT(static_cast<int>(i)) = static_cast<T>(b[i]);
-        auto fac = mtl::sparse::factorization::native_klu_factor<
-            T, mtl::mat::parameters<>, Accumulator>(AT);
+        auto fac = mtl::sparse::factorization::native_klu_factor<Accumulator>(AT);
         fac.solve(xT, bT);
         std::vector<double> x(n);
         for (std::size_t i = 0; i < n; ++i) x[i] = static_cast<double>(xT(static_cast<int>(i)));
@@ -127,8 +126,7 @@ solve_stats mixed_refine(const DSparse& A,
     try {
         const std::size_t n = A.num_rows();
         auto AT = recast<T>(A);
-        auto fac = mtl::sparse::factorization::native_klu_factor<
-            T, mtl::mat::parameters<>, Accumulator>(AT);             // factor once in T
+        auto fac = mtl::sparse::factorization::native_klu_factor<Accumulator>(AT);  // factor once in T
 
         mtl::vec::dense_vector<double> bv(n), xv(n, 0.0);
         for (std::size_t i = 0; i < n; ++i) bv(static_cast<int>(i)) = b[i];
