@@ -58,7 +58,10 @@ SuiteSparse circuit matrices and compare accuracy across `double`, `float`,
       fills MTL5's sparse_lu accumulator seam (stillwater-sc/mtl5#122) with a
       Universal posit quire (exact fused dot product); MTL5
       `native_klu_factor` forwards an `Accumulator` (stillwater-sc/mtl5#156) so
-      the full BTF-KLU factorization can use it.
+      the full BTF-KLU factorization can use it. Since replaced by Universal's
+      `quire<P>` directly: Universal defines its `accumulator_*` functions and
+      MTL5 finds them by ADL, so the adapter header was deleted
+      (stillwater-sc/mtl5#582).
 - [x] **Comprehensive precision study** (`applications/klu_precision_study`) and
       quire deep-dive (`applications/klu_quire_study`). Full write-up with tables:
       [docs/mixed-precision-klu-study.md](mixed-precision-klu-study.md).
