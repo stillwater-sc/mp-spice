@@ -26,7 +26,6 @@
 #include <mtl/sparse/factorization/sparse_lu.hpp>
 
 #include <universal/number/posit/posit.hpp>
-#include <sw/mp_spice/quire_accumulator.hpp>
 #include <sw/mp_spice/klu_study.hpp>
 
 namespace {
@@ -103,7 +102,7 @@ Result compare(const std::string& type, const Dbl& Ad) {
 
         mtl::vec::dense_vector<P> xq(n, P(0));
         auto quire = mtl::sparse::factorization::sparse_lu_numeric<
-            sw::mp_spice::quire_acc<P>>(A, sym);
+            sw::universal::quire<P>>(A, sym);
         quire.solve(xq, b);
         errors(A, xq, b, r.quire_res, r.quire_ferr);
         r.ok = true;
@@ -174,7 +173,7 @@ int main(int argc, char** argv) {
     auto ir_row = [&](const std::string& type, auto tag) {
         using P = decltype(tag);
         auto plain = sw::mp_spice::mixed_refine<P>(A, b, ones);
-        auto quire = sw::mp_spice::mixed_refine<P, sw::mp_spice::quire_acc<P>>(A, b, ones);
+        auto quire = sw::mp_spice::mixed_refine<P, sw::universal::quire<P>>(A, b, ones);
         auto cell = [](const sw::mp_spice::solve_stats& s) {
             if (s.ok) std::printf(" %11.3e %11.3e %5d", s.residual, s.fwd_error, s.iters);
             else      std::printf(" %11s %11s %5s", "FAIL", "-", "-");

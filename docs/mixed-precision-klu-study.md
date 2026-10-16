@@ -178,5 +178,8 @@ mixed-precision carrier, including IEEE `half`.
 - `include/sw/mp_spice/klu_study.hpp` — `direct_solve`, `mixed_refine`,
   `mixed_refine_scaled` (all accumulator-parameterized), residual/forward-error
   helpers.
-- `include/sw/mp_spice/quire_accumulator.hpp` — the posit-quire accumulator
-  adapter for MTL5's `accumulator_traits` seam.
+- The quire accumulator is Universal's `quire<P>` itself: Universal defines its
+  `accumulator_*` functions and MTL5's `accumulator_traits` finds them by
+  argument-dependent lookup (stillwater-sc/mtl5#582). The studies used a local
+  `quire_acc<P>` adapter until then, with the same rounding: exact products and
+  one `quire_resolve` per consumed entry.

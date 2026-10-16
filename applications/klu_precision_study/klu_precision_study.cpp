@@ -30,7 +30,6 @@
 #include <universal/number/cfloat/cfloat.hpp>
 #include <universal/number/posit/posit.hpp>
 #include <sw/mp_spice/klu_study.hpp>
-#include <sw/mp_spice/quire_accumulator.hpp>
 
 namespace {
 
@@ -110,9 +109,9 @@ int main(int argc, char** argv) {
         using P = decltype(tag);
         T2 r{t,
              sw::mp_spice::direct_solve<P>(A, b, ones),
-             sw::mp_spice::direct_solve<P, sw::mp_spice::quire_acc<P>>(A, b, ones),
+             sw::mp_spice::direct_solve<P, sw::universal::quire<P>>(A, b, ones),
              sw::mp_spice::mixed_refine<P>(A, b, ones),
-             sw::mp_spice::mixed_refine<P, sw::mp_spice::quire_acc<P>>(A, b, ones)};
+             sw::mp_spice::mixed_refine<P, sw::universal::quire<P>>(A, b, ones)};
         std::printf("%-13s | %11.3e %11.3e | %11.3e %11.3e (it %d/%d)\n", t.c_str(),
                     r.dp.fwd_error, r.dq.fwd_error, r.ip.fwd_error, r.iq.fwd_error, r.ip.iters, r.iq.iters);
         t2.push_back(r);
